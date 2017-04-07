@@ -34,11 +34,13 @@ def write_image(user_hash)
     unless File.directory?(image_path)  # create directory for image
       FileUtils.mkdir_p(image_path)
     end
-    image = File.binread(user_hash["image"][:tempfile])  # open image file
-    f = File.new "#{image_path}/#{user_hash["image"][:filename]}", "wb"
-    f.write(image)
-    f.close if f
-    return "#{image_path}/#{user_hash["image"][:filename]}"
+    unless user_hash["image"][:tempfile] == 0
+      image = File.binread(user_hash["image"][:tempfile])  # open image file
+      f = File.new "#{image_path}/#{user_hash["image"][:filename]}", "wb"
+      f.write(image)
+      f.close if f
+      return "#{image_path}/#{user_hash["image"][:filename]}"
+    end
   rescue PG::Error => e
     puts 'Exception occurred'
     puts e.message

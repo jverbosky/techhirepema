@@ -13,17 +13,12 @@ def add_form(form_hash)
     #                           b
     #                         end ] } ]
 
-    # form_hash.each do |form, value|
-    #   form_hash[form] = 0 if value == ""
-    # end
-
-   form_hash.each do |form, value|
-      if value == "image"
-        form_hash[form] = {0}
-      elseif value == ""
-        form_hash[form] = 0
-      end
+    form_hash.each do |form, value|
+      form_hash[form] = 0 if value == ""
     end
+
+    # form_hash["image"] = "0" if (form_hash.has_key? "image") == false
+    form_hash["image"] = {:filename=>"0", :tempfile=>0} if (form_hash.has_key? "image") == false
 
     # print form_hash
 

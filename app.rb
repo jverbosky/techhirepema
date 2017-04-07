@@ -11,7 +11,6 @@ class AcesApp < Sinatra::Base
   end
 
   post '/commit_form' do
-
     add_form(params[:user])
     write_image(params[:user])
     redirect to '/'
