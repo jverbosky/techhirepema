@@ -6,21 +6,11 @@ load "./local_env.rb" if File.exists?("./local_env.rb")
 def add_form(form_hash)
   begin
 
-    # form_hash = Hash[ form_hash.map{ |a, b| [ a,
-    #                         begin
-    #                           Integer b
-    #                         rescue ArgumentError
-    #                           b
-    #                         end ] } ]
-
     form_hash.each do |form, value|
       form_hash[form] = 0 if value == ""
     end
 
-    # form_hash["image"] = "0" if (form_hash.has_key? "image") == false
     form_hash["image"] = {:filename=>"0", :tempfile=>0} if (form_hash.has_key? "image") == false
-
-    # print form_hash
 
 # aggregate user data into multi-dimensional array for iteration
   ind_forms = []
