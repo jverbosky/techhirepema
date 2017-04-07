@@ -38,8 +38,10 @@ class AcesApp < Sinatra::Base
       ary = substr.strip.split('=>')
       h[ary.first.tr('\'','')] = ary.last.tr('\'','')
     end
-    #user_hash = get_data(vals[vals.index{|s| s.include?("id")}].sub("id=", ""))
-    image = pull_image(h["id"])
+    # user_hash = get_data(vals[vals.index{|s| s.include?("id")}].sub("id=", ""))
+    # "#{h}"
+    # image = pull_image(h["id"])
+    image = pull_image(h["name"])
     # "#{image}"
     erb :update_form, :locals => {results: h, image: image}
   end
