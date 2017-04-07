@@ -17,7 +17,8 @@ class AcesApp < Sinatra::Base
   end
 
   get '/search' do
-    erb :search
+    feedback = ""
+    erb :search, locals: {feedback: feedback}
   end
 
   post '/search_results' do
