@@ -16,6 +16,11 @@
   margin-bottom: 10px;
 }
 
+img {
+  max-width: 500px;
+  height: auto;
+}
+
 .tabbed{ 
   margin-left: 40px;
 }
