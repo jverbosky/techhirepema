@@ -162,7 +162,8 @@ def pull_records(value)
       query = "select *
               from common
               join ind on common.id = ind.common_id
-              where " + column + " ilike $1"  # bind parameter
+              where " + column + " ilike $1
+              order by name"  # bind parameter
       conn.prepare('q_statement', query)
       rs = conn.exec_prepared('q_statement', ["%" + value + "%"])
       conn.exec("deallocate q_statement")
