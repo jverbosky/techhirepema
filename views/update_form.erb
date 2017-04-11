@@ -102,6 +102,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
+    <p><i><%= feedback %></i></p>
     <form action='/commit_updates' enctype="multipart/form-data" method="post">
     <h3>General Information</h3>
     Name: <input type ="text" name="user[name]" value="<%=results["name"]%>"><br>
@@ -280,8 +281,8 @@ Conjunctive Damage: If damaged, the exterior wall, interior wall, and finish, el
   </table><br>
   <input type="hidden" name="user[id]" value="<%=results["id"]%>">
   <img src=<%= image %>><br>
+  <input type="file" name="user[image]" accept="image/*">
   <input type="submit">
-  <input type="file" name="image" accept="image/*" value="<%=results["image"]%>">
 </form>
     </section>
     <!-- /.content -->

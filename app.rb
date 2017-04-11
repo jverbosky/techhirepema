@@ -6,14 +6,19 @@ require_relative "return_data.rb"
 class AcesApp < Sinatra::Base
 
   get "/" do
-
-  	erb :starter
+    feedback = ""
+  	erb :starter, locals: {feedback: feedback}
   end
 
   post '/commit_form' do
-    add_form(params[:user])
-    write_image(params[:user])
-    redirect to '/'
+    feedback = validate_file(params[:user])
+    if feedback == ""
+      add_form(params[:user])
+      write_image(params[:user])
+      redirect to '/'
+    else
+      erb :starter, locals: {feedback: feedback}
+    end
   end
 
   get '/search' do
@@ -33,6 +38,7 @@ class AcesApp < Sinatra::Base
   end
 
   post '/update_form' do
+    feedback = ""
     vals = params[:vars]
     h = {}
     vals.split(',').each do |substr|
@@ -40,12 +46,19 @@ class AcesApp < Sinatra::Base
       h[ary.first.tr('\'','')] = ary.last.tr('\'','')
     end
     image = pull_image(h["name"])
-    erb :update_form, :locals => {results: h, image: image}
+    erb :update_form, :locals => {results: h, image: image, feedback: feedback}
   end
 
   post '/commit_updates' do
-    user_hash = params[:user]
-    update_values(user_hash)
-    redirect to "/"
+    feedback = validate_file(params[:user])
+    if feedback == ""
+      update_values(params[:user])
+      write_image(params[:user])
+      redirect to "/"
+    else
+      image = pull_image(params[:user]["name"])
+      erb :update_form, locals: {results: params[:user], image: image, feedback: feedback}
+    end
   end
+
 end

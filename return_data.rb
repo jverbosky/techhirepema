@@ -1,6 +1,7 @@
 # Example program to return all data from details and quotes tables
 
 require 'pg'
+require_relative 'file_validation.rb'
 load "./local_env.rb" if File.exists?("./local_env.rb")
 
 def open_db()
@@ -22,6 +23,16 @@ def open_db()
   rescue PG::Error => e
     puts 'Exception occurred'
     puts e.message
+  end
+end
+
+def validate_file(user_hash)
+  file_hash = user_hash[:image]
+  file_check = FileValidation.new
+  if file_check.validate_file(file_hash)
+    feedback = ""
+  else
+    feedback = "Invalid image file - please upload a valid image in GIF, JPG or PNG format."
   end
 end
 
